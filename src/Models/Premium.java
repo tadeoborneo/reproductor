@@ -1,10 +1,15 @@
 package Models;
 
 import Interfaces.Reproduction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.List;
 import java.util.Queue;
 
+
+
 public class Premium extends Account implements Reproduction {
+    @JsonIgnore
     private Boolean aleatory;
 
     public Boolean getAleatory() {
@@ -18,6 +23,14 @@ public class Premium extends Account implements Reproduction {
     public Premium(String user, String password) {
         super(user, password);
         this.aleatory = false;
+    }
+
+    public Premium(String user, String password, List<Playlist> playlists) {
+        super(user, password, playlists);
+    }
+
+    public Premium() {
+        super();
     }
 
     @Override

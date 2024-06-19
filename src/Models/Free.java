@@ -2,11 +2,20 @@ package Models;
 
 import Interfaces.Reproduction;
 
+import java.util.List;
 import java.util.Queue;
-
 public class Free extends Account implements Reproduction {
+
     public Free(String user, String password) {
         super(user, password);
+    }
+
+    public Free(String user, String password, List<Playlist> playlists) {
+        super(user, password, playlists);
+    }
+
+    public Free() {
+        super();
     }
 
     @Override

@@ -1,17 +1,1 @@
-[
-  {
-    "user": "tadeoborneo",
-    "password": "tadeo123",
-    "playlists": []
-  },
-  {
-    "user": "stnico",
-    "password": "stnico123",
-    "playlists": []
-  },
-  {
-    "user": "juan",
-    "password": "juan123",
-    "playlists": []
-  }
-]
+{"premium":[{"user":"cuentapremium","password":"premium123","playlists":[]},{"user":"otraprem","password":"otra1234","playlists":[]}],"free":[{"user":"cuentafree","password":"free123","playlists":[]},{"user":"cuentagratis","password":"gratis12","playlists":[]},{"user":"tadeoborneo","password":"tadeo123","playlists":[]},{"user":"freee","password":"freeworld","playlists":[]}]}

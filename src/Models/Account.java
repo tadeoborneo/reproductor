@@ -1,7 +1,6 @@
 package Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.*;
 
 public class Account {
@@ -10,6 +9,7 @@ public class Account {
     private List<Playlist> playlists = new ArrayList<>();
     @JsonIgnore
     private Deque<Song> songQueue = new ArrayDeque<>();
+
 
     public List<Playlist> getPlaylists() {
         return playlists;
@@ -44,6 +44,12 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    public Account(String user, String password, List<Playlist> playlists) {
+        this.user = user;
+        this.password = password;
+        this.playlists = playlists;
     }
 
     public Account(String user, String password) {
