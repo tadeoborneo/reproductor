@@ -1,11 +1,11 @@
 package Models;
 
-import java.util.List;
+import java.util.*;
 
-public class Artist {
+public class Artist implements Comparable<Artist>{
     private String name;
     private Integer monthlyListeners;
-    private List<Album> albums;
+    private Set<Album> albums;
 
     public String getName() {
         return name;
@@ -23,17 +23,49 @@ public class Artist {
         this.monthlyListeners = monthlyListeners;
     }
 
-    public List<Album> getAlbums() {
+    public Set<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(Set<Album> albums) {
         this.albums = albums;
     }
 
-    public Artist(String name, Integer monthlyListeners, List<Album> albums) {
+    public Artist(String name) {
         this.name = name;
-        this.monthlyListeners = monthlyListeners;
-        this.albums = albums;
+        this.monthlyListeners = 0;
+        this.albums = new TreeSet<>();
+    }
+
+    public Artist() {
+    }
+
+    @Override
+    public String toString() {
+        return "Name: "+this.getName()+
+                "\nMonthly listeners: "+this.getMonthlyListeners()+
+                "\nAlbums: "+this.getAlbums();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Artist artist)) return false;
+        return Objects.equals(getName(), artist.getName()) && Objects.equals(getMonthlyListeners(), artist.getMonthlyListeners()) && Objects.equals(getAlbums(), artist.getAlbums());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getMonthlyListeners(), getAlbums());
+    }
+
+    @Override
+    public int compareTo(Artist o) {
+        if(this.getName().compareTo(o.getName()) > 0)
+            return 1;
+        else if (this.getName().compareTo(o.getName()) < 0)
+            return -1;
+        else
+            return 0;
     }
 }

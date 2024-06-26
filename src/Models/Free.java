@@ -43,4 +43,9 @@ public class Free extends Account implements Reproduction {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Free account: \n" + super.toString();
+    }
+
 }

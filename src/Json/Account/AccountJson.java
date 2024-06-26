@@ -1,4 +1,4 @@
-package Json;
+package Json.Account;
 
 import Models.Account;
 import Models.Free;
@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class AccountJson {
     private ObjectMapper mapper = new ObjectMapper();
-    private static final File accountJson = new File("src/Json/Account.json");
-    public List<Account> accounts;
+    private static final File accountJson = new File("src/Json/Account/Account.json");
+    private List<Account> accounts;
 
     public List<Account> getAccounts() {
         return accounts;
@@ -47,8 +47,7 @@ public class AccountJson {
                 return aux;
             } else
                 return new ArrayList<>();
-        } catch (
-                Exception e) {
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
@@ -78,22 +77,33 @@ public class AccountJson {
     }
 
     public void add(Account account) {
-        this.accounts.add(account);
+        this.getAccounts().add(account);
     }
 
     public void remove(Account account) {
         this.getAccounts().remove(account);
     }
 
+    public void viewAccounts() {
+
+        for (Account a : this.getAccounts()) {
+            System.out.println("--------------------------------------------------------");
+            System.out.println(a);
+            System.out.println("--------------------------------------------------------");
+
+        }
+    }
 
     public Boolean existUser(String username) {
-        return accounts.stream().anyMatch(a -> a.getUser().equals(username));
+        return this.getAccounts().stream().anyMatch(a -> a.getUser().equals(username));
     }
 
     public Account searchAccount(String user) {
-        for (Account a : accounts) {
-            if (a.getUser().equals(user))
-                return a;
+        if (existUser(user)){
+            for (Account a : accounts) {
+                if (a.getUser().equals(user))
+                    return a;
+            }
         }
         return null;
     }

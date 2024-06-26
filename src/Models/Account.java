@@ -1,6 +1,7 @@
 package Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 public class Account {
@@ -61,12 +62,9 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", playlists=" + playlists +
-                ", songQueue=" + songQueue +
-                '}';
+        return "Username: " + this.getUser() +
+                "\nPassword: " + this.getPassword() +
+                "\nPlaylists: " + this.getPlaylists();
     }
 
     public Playlist addPlaylist(Playlist playlist) {

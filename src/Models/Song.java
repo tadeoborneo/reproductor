@@ -3,6 +3,7 @@ package Models;
 import Enums.MusicalGenre;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Song {
     private String name;
@@ -57,5 +58,17 @@ public class Song {
         this.musicalGenre = musicalGenre;
         this.artists = artists;
         this.album = album;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song song)) return false;
+        return Objects.equals(getName(), song.getName()) && Objects.equals(getSecondDuration(), song.getSecondDuration()) && getMusicalGenre() == song.getMusicalGenre() && Objects.equals(getArtists(), song.getArtists()) && Objects.equals(getAlbum(), song.getAlbum());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSecondDuration(), getMusicalGenre(), getArtists(), getAlbum());
     }
 }

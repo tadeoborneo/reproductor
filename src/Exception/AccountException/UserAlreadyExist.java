@@ -1,4 +1,4 @@
-package Exception;
+package Exception.AccountException;
 
 public class UserAlreadyExist extends AccountException {
     public UserAlreadyExist() {

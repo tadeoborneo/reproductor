@@ -1,4 +1,4 @@
-package Exception;
+package Exception.AccountException;
 
 public class PasswordIsTooShort extends AccountException{
     public PasswordIsTooShort() {

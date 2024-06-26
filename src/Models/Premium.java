@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Queue;
 
 
-
 public class Premium extends Account implements Reproduction {
     @JsonIgnore
     private Boolean aleatory;
@@ -58,17 +57,22 @@ public class Premium extends Account implements Reproduction {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Premium account: \n" + super.toString();
+    }
+
     public Playlist createPlaylist(String name) {
         return new Playlist(name);
     }
 
-    public Song addToQueue (Song song) {
+    public Song addToQueue(Song song) {
         this.getSongQueue().offer(song);
         return song;
     }
 
-    public Song deleteFromQueue (Song song) {
-        if(this.getSongQueue().contains(song))
+    public Song deleteFromQueue(Song song) {
+        if (this.getSongQueue().contains(song))
             return song;
         else
             return null;

@@ -1,8 +1,13 @@
 import Models.Account;
+import Models.Artist;
 import Models.Free;
 import Models.Premium;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class Main {
@@ -10,12 +15,6 @@ public class Main {
         MusicPlayer mp = new MusicPlayer();
         mp.mainMenu();
 
-        for (Account a : mp.getAccountController().getAccountService().getAll()){
-            if(a instanceof Free)
-                System.out.println("Pobre");
-            if (a instanceof Premium)
-                System.out.println("Millo");
-        }
     }
 
 }

@@ -1,11 +1,14 @@
 package Service;
 
-import Json.AccountJson;
+import Exception.AccountException.AccountException;
+import Exception.AccountException.PasswordIsTooShort;
+import Exception.AccountException.UserAlreadyExist;
+import Exception.AccountException.UserNotFound;
+import Json.Account.AccountJson;
 import Models.Account;
 
 import java.util.List;
 
-import Exception.*;
 import Models.Free;
 import Models.Premium;
 
@@ -37,8 +40,12 @@ public class AccountService {
         return this.getJsonAcc().getAccounts();
     }
 
-    public void remove(Account account) {
-        this.getJsonAcc().remove(account);
+    public void remove(String username) throws AccountException {
+        Account account;
+        if ((account = this.getJsonAcc().searchAccount(username)) != null)
+            this.getJsonAcc().remove(account);
+        else
+            throw new UserNotFound();
     }
 
 }

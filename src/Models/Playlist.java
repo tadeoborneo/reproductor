@@ -3,7 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playlist {
+public class Playlist implements Comparable<Playlist>{
     private String name;
     private List<Song> songs;
 
@@ -31,5 +31,15 @@ public class Playlist {
     public Song addSong (Song song){
         this.getSongs().add(song);
         return song;
+    }
+
+    @Override
+    public int compareTo(Playlist o) {
+        if(this.getName().compareTo(o.getName()) > 0)
+            return 1;
+        else if (this.getName().compareTo(o.getName()) < 0)
+            return -1;
+        else
+            return 0;
     }
 }
