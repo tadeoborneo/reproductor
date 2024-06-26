@@ -18,11 +18,13 @@ public class ArtistController {
         this.artistService = new ArtistService();
     }
 
-    public void createArtist (){
+    public Artist createArtist (){
         Scanner sc = new Scanner(System.in);
         System.out.println("Name :");
         String name = sc.nextLine();
-        this.getArtistService().add(new Artist(name));
+        Artist artist = new Artist(name);
+        this.getArtistService().add(artist);
+        return artist;
     }
 
     public void removeArtist(){

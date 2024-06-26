@@ -1,5 +1,4 @@
 package Service;
-
 import Exception.Artist.ArtistException;
 import Exception.Artist.ArtistNotFound;
 import Json.Artist.ArtistJson;

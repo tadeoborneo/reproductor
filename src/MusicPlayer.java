@@ -137,6 +137,42 @@ public class MusicPlayer {
         }
     }
 
+    public void playlistAdmin() {
+        Integer select = 0;
+        while (true) {
+            try {
+                System.out.println("1- Create playlist");
+                System.out.println("2- Delete playlist");
+                System.out.println("3- Update playlist");
+                System.out.println("4- View playlists");
+                System.out.println("0- Exit");
+                select = sc.nextInt();
+                sc.nextLine();
+                switch (select) {
+                    case 1://CREATE PLAYLIST
+
+                         break;
+                    case 2://DELETE PLAYLIST
+                        break;
+                    case 3://UPDATE PLAYLIST
+                        // TODO
+                        break;
+                    case 4://VIEW PLAYLIST
+                        break;
+                    case 0://EXIT
+                        return;
+
+                    default:
+                        System.out.println("Select a valid option");
+
+                }
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println("It isn't a number");
+                sc.nextLine();
+            }
+        }
+    }
+
     public void artistAdmin() {
         Integer select = 0;
         while (true) {
@@ -144,7 +180,7 @@ public class MusicPlayer {
                 System.out.println("1- Create artist");
                 System.out.println("2- Delete artist");
                 System.out.println("3- Update artist");
-                System.out.println("4- View artist");
+                System.out.println("4- View artists");
                 System.out.println("0- Exit");
                 select = sc.nextInt();
                 sc.nextLine();
@@ -159,7 +195,7 @@ public class MusicPlayer {
                         // TODO
                         break;
                     case 4://VIEW ARTIST
-                        this.getArtistController().getArtistService().getArtistJson().viewArtists();
+                        this.getArtistController().getArtistService().getArtistJson().view();
                         break;
                     case 0://EXIT
                         return;
@@ -182,13 +218,13 @@ public class MusicPlayer {
                 System.out.println("1- Create song");
                 System.out.println("2- Delete song");
                 System.out.println("3- Update song");
-                System.out.println("4- View song");
+                System.out.println("4- View songs");
                 System.out.println("0- Exit");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
                     case 1://CREATE SONG
-
+                        this.getSongController().createSong();
                         break;
                     case 2://DELETE SONG
                         break;
@@ -246,7 +282,7 @@ public class MusicPlayer {
                         // TODO
                         break;
                     case 4://VIEW ACCOUNTS
-                        this.getAccountController().getAccountService().getJsonAcc().viewAccounts();
+                        this.getAccountController().getAccountService().getJsonAcc().view();
                         break;
                     case 0://EXIT
                         return;

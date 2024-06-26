@@ -1,5 +1,6 @@
 package Json.Song;
 
+import Interfaces.Crud;
 import Models.Song;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class SongJson {
+public class SongJson implements Crud<Song> {
     private ObjectMapper mapper = new ObjectMapper();
     private static final File songJson = new File("src/Json/Song/Song.json");
     private Set<Song> songs;
@@ -33,15 +34,28 @@ public class SongJson {
             return new TreeSet<>();
         }
     }
-    public void saveJsonSongs (){
+
+    public void saveJsonSongs() {
         try {
-            mapper.writeValue(songJson,songs);
+            mapper.writeValue(songJson, songs);
         } catch (IOException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
+            ;
         }
     }
 
-    public void add (Song song){
+    @Override
+    public void add(Song song) {
         this.getSongs().add(song);
+    }
+
+    @Override
+    public void remove(Song song) {
+
+    }
+
+    @Override
+    public void view() {
+
     }
 }

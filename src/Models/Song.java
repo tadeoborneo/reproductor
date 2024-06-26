@@ -4,12 +4,13 @@ import Enums.MusicalGenre;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Song {
     private String name;
     private Integer secondDuration;
     private MusicalGenre musicalGenre;
-    private List<Artist> artists;
+    private Set<Artist> artists;
     private Album album;
 
     public String getName() {
@@ -36,11 +37,11 @@ public class Song {
         this.musicalGenre = musicalGenre;
     }
 
-    public List<Artist> getArtists() {
+    public Set<Artist> getArtists() {
         return artists;
     }
 
-    public void setArtists(List<Artist> artists) {
+    public void setArtists(Set<Artist> artists) {
         this.artists = artists;
     }
 
@@ -52,7 +53,7 @@ public class Song {
         this.album = album;
     }
 
-    public Song(String name, Integer secondDuration, MusicalGenre musicalGenre, List<Artist> artists, Album album) {
+    public Song(String name, Integer secondDuration, MusicalGenre musicalGenre, Set<Artist> artists, Album album) {
         this.name = name;
         this.secondDuration = secondDuration;
         this.musicalGenre = musicalGenre;

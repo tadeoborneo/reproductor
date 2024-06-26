@@ -1,5 +1,6 @@
 package Json.Account;
 
+import Interfaces.Crud;
 import Models.Account;
 import Models.Free;
 import Models.Premium;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AccountJson {
+public class AccountJson implements Crud<Account> {
     private ObjectMapper mapper = new ObjectMapper();
     private static final File accountJson = new File("src/Json/Account/Account.json");
     private List<Account> accounts;
@@ -76,15 +77,18 @@ public class AccountJson {
         }
     }
 
+    @Override
     public void add(Account account) {
         this.getAccounts().add(account);
     }
 
+    @Override
     public void remove(Account account) {
         this.getAccounts().remove(account);
     }
 
-    public void viewAccounts() {
+    @Override
+    public void view() {
 
         for (Account a : this.getAccounts()) {
             System.out.println("--------------------------------------------------------");
@@ -99,7 +103,7 @@ public class AccountJson {
     }
 
     public Account searchAccount(String user) {
-        if (existUser(user)){
+        if (existUser(user)) {
             for (Account a : accounts) {
                 if (a.getUser().equals(user))
                     return a;

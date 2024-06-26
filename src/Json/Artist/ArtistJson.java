@@ -1,5 +1,6 @@
 package Json.Artist;
 
+import Interfaces.Crud;
 import Models.Artist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,10 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ArtistJson {
+public class ArtistJson implements Crud<Artist> {
     private static final File jsonArtist = new File("src/Json/Artist/Artist.json");
     private ObjectMapper mapper = new ObjectMapper();
     private List<Artist> artists;
@@ -44,14 +44,18 @@ public class ArtistJson {
         }
     }
 
+    @Override
     public void add(Artist artist) {
         this.getArtists().add(artist);
     }
-    public void remove(Artist artist){
+
+    @Override
+    public void remove(Artist artist) {
         this.getArtists().remove(artist);
     }
 
-    public void viewArtists() {
+    @Override
+    public void view() {
         for (Artist a : this.getArtists()) {
             System.out.println("--------------------------------------------------------");
             System.out.println(a);
@@ -59,11 +63,11 @@ public class ArtistJson {
         }
     }
 
-    public Boolean existArtist(String name){
+    public Boolean existArtist(String name) {
         return this.getArtists().stream().anyMatch(artist -> artist.getName().equals(name));
     }
 
-    public List<Artist> searchArtists(String name){
+    public List<Artist> searchArtists(String name) {
         return this.getArtists().stream().filter(artist -> artist.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
     }
 }

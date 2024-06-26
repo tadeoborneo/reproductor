@@ -1,12 +1,11 @@
 package Controller;
 
 import Enums.MusicalGenre;
+import Models.Album;
 import Models.Artist;
 import Service.SongService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SongController {
     private SongService songService;
@@ -35,7 +34,7 @@ public class SongController {
         Integer genre;
         MusicalGenre musicalGenre = null;
         do {
-            System.out.println("1- Rock 2- Trap 3- Rap 4- Jazz 5- Metal 6- Pop 7- Classic");
+            System.out.println("1-Rock 2-Trap 3-Rap 4-Jazz 5-Metal 6-Pop 7-Classic");
             genre = sc.nextInt();
             sc.nextLine();
             if (genre.equals(1))
@@ -55,12 +54,45 @@ public class SongController {
             else
                 System.out.println("Invalid option");
         } while (musicalGenre == null);
-        List<Artist> songCreators = new ArrayList<>();
-        do {
-            String artistName = sc.nextLine();
-            this.getArtistController().getArtistService().getArtistJson().searchArtists(artistName);
-        }while ();
-        //TODO AGREGAR UN FILTRADO DE LOS ARTISTAS EXISTENTES POR NOMBRE Y SI NO EXISTE DAR LA OPCION DE CREAR ARTISTA
 
+        Set<Artist> songCreators = new TreeSet<>();
+        Integer select;
+        List<Artist> aux;
+        do {
+            System.out.println("Search artist by name: ");
+            String artistName = sc.nextLine();
+
+            aux = this.getArtistController().getArtistService().getArtistJson().searchArtists(artistName);
+            if (aux.size() < 1) {
+                System.out.println("The artist is not registered. Do you want to create it? 1- YES  2- NO");
+                select = sc.nextInt();
+                sc.nextLine();
+                if (select.equals(1)) {
+                    songCreators.add(this.artistController.createArtist());
+                }
+            } else {
+                for (int i = 0; i < aux.size(); i++) {
+                    System.out.println("--------------------------------------------------------");
+                    System.out.println("|" + (i + 1) + "|\n" + aux.get(i));
+                    System.out.println("--------------------------------------------------------");
+                }
+                System.out.println("Select (any other number to search again): ");
+                select = sc.nextInt();
+                sc.nextLine();
+                if (select < 1 || select > aux.size()) {
+                    select = 1;
+                } else {
+                    songCreators.add(aux.get(select - 1));
+
+                }
+            }
+            if (songCreators.size() > 0){
+                System.out.println("Do you want to select another artist?\n1- YES\n2- NO");
+                select = sc.nextInt();
+                sc.nextLine();
+            }
+        } while (select.equals(1) || songCreators.size() < 1);
+        Album album;
+        //TODO AGREGAR FILTRADO Y SELECCION DE ALBUMS
     }
 }
