@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ArtistJson implements Crud<Artist> {
     private static final File jsonArtist = new File("src/Json/Artist/Artist.json");
@@ -38,7 +37,7 @@ public class ArtistJson implements Crud<Artist> {
 
     public void saveJsonArtist() {
         try {
-            mapper.writeValue(jsonArtist, artists);
+            mapper.writeValue(jsonArtist, this.getArtists());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -70,4 +69,5 @@ public class ArtistJson implements Crud<Artist> {
     public List<Artist> searchArtists(String name) {
         return this.getArtists().stream().filter(artist -> artist.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
     }
+
 }

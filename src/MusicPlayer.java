@@ -1,5 +1,6 @@
 import Controller.AccountController;
 import Controller.ArtistController;
+import Controller.AlbumController;
 import Controller.SongController;
 import Models.Account;
 import Models.Free;
@@ -11,6 +12,7 @@ public class MusicPlayer {
     private final AccountController accountController;
     private final SongController songController;
     private final ArtistController artistController;
+    private final AlbumController albumController;
     public static final Scanner sc = new Scanner(System.in);
 
     public AccountController getAccountController() {
@@ -25,10 +27,15 @@ public class MusicPlayer {
         return artistController;
     }
 
+    public AlbumController getAlbumController() {
+        return albumController;
+    }
+
     public MusicPlayer() {
         this.accountController = new AccountController();
         this.artistController = new ArtistController();
-        this.songController = new SongController(this.getArtistController());
+        this.albumController = new AlbumController(this.getArtistController());
+        this.songController = new SongController(this.getArtistController(),this.getAlbumController());
     }
 
     public void mainMenu() {
@@ -39,6 +46,7 @@ public class MusicPlayer {
                 System.out.println("2- Create account");
                 System.out.println("3- Sign as administrator");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
@@ -96,6 +104,7 @@ public class MusicPlayer {
                 this.getAccountController().getAccountService().getJsonAcc().saveJsonAccounts();
                 this.getSongController().getSongService().getSongJson().saveJsonSongs();
                 this.getArtistController().getArtistService().getArtistJson().saveJsonArtist();
+                this.getAlbumController().getAlbumService().getAlbumJson().saveJsonAlbums();
             }
         }
     }
@@ -106,9 +115,10 @@ public class MusicPlayer {
             try {
                 System.out.println("1- Account");
                 System.out.println("2- Song");
-                System.out.println("3- Playlist");
+                System.out.println("3- Album");
                 System.out.println("4- Artist");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
@@ -118,7 +128,8 @@ public class MusicPlayer {
                     case 2://SONG
                         songAdmin();
                         break;
-                    case 3://PLAYLIST
+                    case 3://ALBUM
+                        albumAdmin();
                         break;
                     case 4://ARTIST
                         artistAdmin();
@@ -137,27 +148,31 @@ public class MusicPlayer {
         }
     }
 
-    public void playlistAdmin() {
+    public void albumAdmin() {
         Integer select = 0;
         while (true) {
             try {
-                System.out.println("1- Create playlist");
-                System.out.println("2- Delete playlist");
-                System.out.println("3- Update playlist");
-                System.out.println("4- View playlists");
+                System.out.println("1- Create album");
+                System.out.println("2- Delete album");
+                System.out.println("3- Update album");
+                System.out.println("4- View album");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
-                    case 1://CREATE PLAYLIST
-
-                         break;
-                    case 2://DELETE PLAYLIST
+                    case 1://CREATE ALBUM
+                        this.getAlbumController().createAlbum();
                         break;
-                    case 3://UPDATE PLAYLIST
+                    case 2://DELETE ALBUM
+                        this.getAlbumController().getAlbumService().getAlbumJson().view();
+                        this.getAlbumController().removeAlbum();
+                        break;
+                    case 3://UPDATE ALBUM
                         // TODO
                         break;
-                    case 4://VIEW PLAYLIST
+                    case 4://VIEW ALBUM
+                        this.getAlbumController().getAlbumService().getAlbumJson().view();
                         break;
                     case 0://EXIT
                         return;
@@ -182,6 +197,7 @@ public class MusicPlayer {
                 System.out.println("3- Update artist");
                 System.out.println("4- View artists");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
@@ -220,6 +236,7 @@ public class MusicPlayer {
                 System.out.println("3- Update song");
                 System.out.println("4- View songs");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
@@ -256,6 +273,7 @@ public class MusicPlayer {
                 System.out.println("3- Update account");
                 System.out.println("4- View accounts");
                 System.out.println("0- Exit");
+                System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
@@ -273,10 +291,8 @@ public class MusicPlayer {
                         }
                         break;
                     case 2://DELETE ACCOUNT
-                        System.out.println(this.getAccountController().getAll());
-                        System.out.println("Select by name: ");
-                        String username = sc.nextLine();
-                        this.getAccountController().removeAccount(username);
+                        this.getAccountController().getAccountService().getJsonAcc().view();
+                        this.getAccountController().removeAccount();
                         break;
                     case 3://UPDATE ACCOUNT
                         // TODO

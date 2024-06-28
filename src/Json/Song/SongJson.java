@@ -37,7 +37,7 @@ public class SongJson implements Crud<Song> {
 
     public void saveJsonSongs() {
         try {
-            mapper.writeValue(songJson, songs);
+            mapper.writeValue(songJson,this.getSongs());
         } catch (IOException e) {
             System.out.println(e.getMessage());
             ;

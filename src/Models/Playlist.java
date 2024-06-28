@@ -28,8 +28,13 @@ public class Playlist implements Comparable<Playlist>{
         songs = new ArrayList<>();
     }
 
+    public Playlist() {
+    }
+
     public Song addSong (Song song){
-        this.getSongs().add(song);
+        if (!this.getSongs().contains(song)){
+            this.getSongs().add(song);
+        }
         return song;
     }
 
@@ -41,5 +46,11 @@ public class Playlist implements Comparable<Playlist>{
             return -1;
         else
             return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: "+this.getName()+
+                "\nSongs: "+this.getSongs();
     }
 }

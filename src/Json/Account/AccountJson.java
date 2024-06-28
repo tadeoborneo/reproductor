@@ -102,12 +102,14 @@ public class AccountJson implements Crud<Account> {
         return this.getAccounts().stream().anyMatch(a -> a.getUser().equals(username));
     }
 
-    public Account searchAccount(String user) {
-        if (existUser(user)) {
-            for (Account a : accounts) {
-                if (a.getUser().equals(user))
-                    return a;
-            }
+    public List<Account> searchAccounts(String user) {
+        return this.getAccounts().stream().filter(account -> account.getUser().toLowerCase().startsWith(user.toLowerCase())).toList();
+    }
+
+    public Account searchAccount(String username){
+        for (Account a : this.getAccounts()){
+            if (a.getUser().toLowerCase().equals(username.toLowerCase()))
+                return a;
         }
         return null;
     }

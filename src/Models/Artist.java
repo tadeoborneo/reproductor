@@ -1,5 +1,7 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.*;
 
 public class Artist implements Comparable<Artist>{

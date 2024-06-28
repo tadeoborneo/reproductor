@@ -1,13 +1,17 @@
 package Service;
+
 import Exception.Artist.ArtistException;
 import Exception.Artist.ArtistNotFound;
+import Interfaces.Selection;
 import Json.Artist.ArtistJson;
+import Models.Album;
 import Models.Artist;
-
+import Exception.InvalidOptionException;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtistService {
+
+public class ArtistService implements Selection<Artist> {
     private ArtistJson artistJson;
 
     public ArtistJson getArtistJson() {
@@ -22,26 +26,23 @@ public class ArtistService {
         this.artistJson.add(artist);
     }
 
-    public void remove(String name) throws ArtistException {
+    public void remove(String name) throws ArtistException,InvalidOptionException {
         List<Artist> artists = this.getArtistJson().searchArtists(name);
-        Scanner sc = new Scanner(System.in);
 
-        if (artists.size() > 0) {
-            if (artists.size() == 1)
-                this.getArtistJson().remove(artists.getFirst());
-            else {
-                for (int i = 0; i < artists.size(); i++) {
-                    System.out.println("--------------------------------------------------------");
-                    System.out.println("|" + (i + 1) + "|\n" + artists.get(i));
-                    System.out.println("--------------------------------------------------------");
-
-                }
-                System.out.println("Press any other number to exit");
-                Integer select = sc.nextInt();
-                if (!(select < 1 || select > artists.size()))
-                    this.getArtistJson().remove(artists.get(select - 1));
-            }
+        if (!artists.isEmpty()) {
+            Integer select = select(artists);
+            if (!(select < 1 || select > artists.size()))
+                this.getArtistJson().remove(artists.get(select - 1));
         } else
             throw new ArtistNotFound();
     }
+
+    public void addAlbumToArtist(Album album, Artist artist){
+        this.getArtistJson().getArtists().forEach(artist1 -> {
+            if (artist1.equals(artist)) {
+                artist1.getAlbums().add(album);
+            }
+        });
+    }
+
 }
