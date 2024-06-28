@@ -44,6 +44,21 @@ public class ArtistController implements Selection<Artist> {
         }
     }
 
+    public Artist updateArtist() {
+        Scanner sc = new Scanner(System.in);
+        Artist updatedArtist;
+        do {
+            System.out.println("Search artist by name: ");
+            String artistName = sc.nextLine();
+            try {
+                updatedArtist = this.getArtistService().update(artistName);
+                return updatedArtist;
+            } catch (ArtistException | InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (true);
+    }
+
     public Artist selectArtist() {
         Scanner sc = new Scanner(System.in);
         Integer select;
@@ -75,32 +90,34 @@ public class ArtistController implements Selection<Artist> {
     }
 
     public void addAlbumToArtist(Album album) {
-        for (Artist a : album.getArtists()){
-            this.getArtistService().addAlbumToArtist(album,a);
+        for (Artist a : album.getArtists()) {
+            this.getArtistService().addAlbumToArtist(album, a);
         }
     }
 
-    public void addSongToArtist(Song song){
-        for (Artist a : song.getArtists()){
-            this.getArtistService().addSongToArtist(song,a);
+    public void addSongToArtist(Song song) {
+        for (Artist a : song.getArtists()) {
+            this.getArtistService().addSongToArtist(song, a);
         }
     }
 
-    public void removeAlbumFromArtist(Album album){
-        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
-            if (a.getAlbums().contains(album)){
+    public void removeAlbumFromArtist(Album album) {
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()) {
+            if (a.getAlbums().contains(album)) {
                 a.getAlbums().remove(album);
             }
         }
     }
-    public void removeSongFromArtist(Song song){
-        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
+
+    public void removeSongFromArtist(Song song) {
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()) {
             if (a.getSongs().contains(song))
                 a.getSongs().remove(song);
-            for (Album album : a.getAlbums()){
+            for (Album album : a.getAlbums()) {
                 if (album.getSongs().contains(song))
                     album.getSongs().remove(song);
             }
         }
     }
+
 }

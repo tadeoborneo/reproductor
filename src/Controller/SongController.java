@@ -33,7 +33,7 @@ public class SongController {
         this.albumController = albumController;
     }
 
-    public void /*TODO BOOLEAN */ createSong() {
+    public void createSong() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Name: ");
         String name = sc.nextLine();
@@ -65,13 +65,13 @@ public class SongController {
         } while (songCreators.isEmpty() || select.equals(1));
 
         Album album = this.getAlbumController().selectAlbum();
-        song = new Song(name,secDuration,musicalGenre,songCreators,album);
+        song = new Song(name, secDuration, musicalGenre, songCreators, album);
         this.getSongService().add(song);
         this.getAlbumController().addSongToAlbum(song);
         this.getArtistController().addSongToArtist(song);
     }
 
-    public Song removeSong(){
+    public Song removeSong() {
         Scanner sc = new Scanner(System.in);
         Song result;
         do {
@@ -84,9 +84,24 @@ public class SongController {
                     this.getArtistController().removeSongFromArtist(result);
                 }
                 return result;
-            }catch (SongException | InvalidOptionException e){
+            } catch (SongException | InvalidOptionException e) {
                 System.out.println(e.getMessage());
             }
-        }while(true);
+        } while (true);
+    }
+
+    public Song updateSong() {
+        Scanner sc = new Scanner(System.in);
+        Song updatedSong;
+        do {
+            System.out.println("Search song by name: ");
+            String songName = sc.nextLine();
+            try {
+                updatedSong = this.getSongService().update(songName);
+                return updatedSong;
+            } catch (SongException | InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (true);
     }
 }

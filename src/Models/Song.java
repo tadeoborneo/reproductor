@@ -3,8 +3,6 @@ package Models;
 import Enums.MusicalGenre;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -54,7 +52,7 @@ public class Song implements Comparable<Song> {
     }
 
     public void setAlbum(Album album) {
-        if (this.album != album){
+        if (this.album != album) {
             this.album = album;
             if (album != null && !album.getSongs().contains(this))
                 album.addSong(this);
@@ -97,8 +95,8 @@ public class Song implements Comparable<Song> {
 
     @Override
     public String toString() {
-        return "Name: "+this.getName()+
-                "\nSecond duration: "+this.getSecondDuration()+
-                "\nMusical genre: "+this.getMusicalGenre();
+        return "Name: " + this.getName() +
+                "\nSecond duration: " + this.getSecondDuration() +
+                "\nMusical genre: " + this.getMusicalGenre();
     }
 }

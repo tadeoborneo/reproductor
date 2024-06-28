@@ -1,8 +1,8 @@
 package Json.Playlist;
 
+import Exception.AlbumException.AlbumNotFound;
 import Interfaces.Crud;
 import Models.Album;
-import Models.Playlist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -53,7 +53,8 @@ public class AlbumJson implements Crud<Album> {
 
     @Override
     public void remove(Album album) {
-        this.getAlbums().remove(album);
+        if (existAlbum(album))
+            this.getAlbums().remove(album);
     }
 
     @Override
@@ -65,7 +66,33 @@ public class AlbumJson implements Crud<Album> {
         }
     }
 
-    public List<Album> searchAlbums(String name){
+    public void updateName(String newName, Album album) throws AlbumNotFound {
+        if (existAlbum(album)) {
+            for (Album a : this.getAlbums()) {
+                if (a.equals(album)) {
+                    a.setName(newName);
+                }
+            }
+        } else
+            throw new AlbumNotFound();
+    }
+
+    public void updateReleaseYear(Integer newReleaseYear, Album album) throws AlbumNotFound {
+        if (existAlbum(album)) {
+            for (Album a : this.getAlbums()) {
+                if (a.equals(album)) {
+                    a.setReleaseYear(newReleaseYear);
+                }
+            }
+        } else
+            throw new AlbumNotFound();
+    }
+
+    public Boolean existAlbum(Album album) {
+        return this.getAlbums().stream().anyMatch(a -> a.equals(album));
+    }
+
+    public List<Album> searchAlbums(String name) {
         return this.getAlbums().stream().filter(album -> album.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
     }
 }

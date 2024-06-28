@@ -98,6 +98,20 @@ public class AccountJson implements Crud<Account> {
         }
     }
 
+    public void updateUsername(String newUsername, Account account) {
+        for (Account a : this.getAccounts()) {
+            if (a.equals(account))
+                a.setUser(newUsername);
+        }
+    }
+
+    public void updatePassword(String newPassword, Account account) {
+        for (Account a : this.getAccounts()) {
+            if (a.equals(account))
+                a.setPassword(newPassword);
+        }
+    }
+
     public Boolean existUser(String username) {
         return this.getAccounts().stream().anyMatch(a -> a.getUser().equals(username));
     }
@@ -106,8 +120,8 @@ public class AccountJson implements Crud<Account> {
         return this.getAccounts().stream().filter(account -> account.getUser().toLowerCase().startsWith(user.toLowerCase())).toList();
     }
 
-    public Account searchAccount(String username){
-        for (Account a : this.getAccounts()){
+    public Account searchAccount(String username) {
+        for (Account a : this.getAccounts()) {
             if (a.getUser().toLowerCase().equals(username.toLowerCase()))
                 return a;
         }

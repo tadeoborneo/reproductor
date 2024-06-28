@@ -4,6 +4,7 @@ import Interfaces.Reproduction;
 
 import java.util.List;
 import java.util.Queue;
+
 public class Free extends Account implements Reproduction {
 
     public Free(String user, String password) {

@@ -5,7 +5,6 @@ import Models.Playlist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
@@ -65,7 +64,7 @@ public class PlaylistJson implements Crud<Playlist> {
         }
     }
 
-    public List<Playlist> searchPlaylists(String name){
+    public List<Playlist> searchPlaylists(String name) {
         return this.getPlaylists().stream().filter(playlist -> playlist.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
     }
 }

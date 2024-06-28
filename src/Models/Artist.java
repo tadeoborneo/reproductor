@@ -1,10 +1,8 @@
 package Models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.*;
 
-public class Artist implements Comparable<Artist>{
+public class Artist implements Comparable<Artist> {
     private String name;
     private Integer monthlyListeners;
     private Set<Album> albums;
@@ -54,10 +52,9 @@ public class Artist implements Comparable<Artist>{
 
     @Override
     public String toString() {
-        return "Name: "+this.getName()+
-                "\nMonthly listeners: "+this.getMonthlyListeners()+
-                "\nAlbums:\n "+this.getAlbums()+
-                "\nSongs: \n"+this.getSongs();
+        return "Name: " + this.getName() +
+                "\nMonthly listeners: " + this.getMonthlyListeners() +
+                "\nSongs: \n" + this.getSongs();
     }
 
     @Override
@@ -74,7 +71,7 @@ public class Artist implements Comparable<Artist>{
 
     @Override
     public int compareTo(Artist o) {
-        if(this.getName().compareTo(o.getName()) > 0)
+        if (this.getName().compareTo(o.getName()) > 0)
             return 1;
         else if (this.getName().compareTo(o.getName()) < 0)
             return -1;

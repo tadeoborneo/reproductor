@@ -26,8 +26,8 @@ public class AlbumController implements Selection<Album> {
     }
 
     public AlbumController(ArtistController artistController) {
-        this.albumService = new AlbumService();
         this.artistController = artistController;
+        this.albumService = new AlbumService(artistController);
     }
 
     public Album createAlbum() {
@@ -70,11 +70,28 @@ public class AlbumController implements Selection<Album> {
                 result = this.getAlbumService().remove(albumName);
                 if (result != null)
                     this.getArtistController().removeAlbumFromArtist(result);
-                 return result;
+                return result;
             } catch (AlbumException | InvalidOptionException e) {
                 System.out.println(e.getMessage());
             }
         } while (true);
+    }
+
+    public Album updateAlbum() {
+        Scanner sc = new Scanner(System.in);
+        Album updatedAlbum;
+        do {
+            System.out.println("Search album by name: ");
+            String albumName = sc.nextLine();
+            try {
+                updatedAlbum = this.getAlbumService().update(albumName);
+                return updatedAlbum;
+            } catch (AlbumException | InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (true);
+
+
     }
 
     public Album selectAlbum() {
@@ -106,16 +123,17 @@ public class AlbumController implements Selection<Album> {
             }
         } while (true);
     }
-    public void addSongToAlbum(Song song){
-        for(Album a : this.getAlbumService().getAlbumJson().getAlbums()){
+
+    public void addSongToAlbum(Song song) {
+        for (Album a : this.getAlbumService().getAlbumJson().getAlbums()) {
             if (song.getAlbum().equals(a))
                 a.addSong(song);
         }
     }
 
-    public void removeSongFromAlbum(Song song){
-        for (Album a : this.getAlbumService().getAlbumJson().getAlbums()){
-            if (a.getSongs().contains(song)){
+    public void removeSongFromAlbum(Song song) {
+        for (Album a : this.getAlbumService().getAlbumJson().getAlbums()) {
+            if (a.getSongs().contains(song)) {
                 a.getSongs().remove(song);
             }
         }

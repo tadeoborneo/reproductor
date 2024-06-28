@@ -1,1 +1,18 @@
-[{"name":"Como si no importara sencillo","songs":[],"releaseYear":2022}]
+[
+  {
+    "name": "POR CESAREA",
+    "songs": [
+      {
+        "name": "Buenos tiempos",
+        "secondDuration": 200,
+        "musicalGenre": "TRAP"
+      },
+      {
+        "name": "Coyote",
+        "secondDuration": 190,
+        "musicalGenre": "TRAP"
+      }
+    ],
+    "releaseYear": 2024
+  }
+]

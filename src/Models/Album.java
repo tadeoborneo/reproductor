@@ -2,7 +2,6 @@ package Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -55,11 +54,12 @@ public class Album extends Playlist {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Album album)) return false;
+        if (!super.equals(o)) return false;
         return Objects.equals(getReleaseYear(), album.getReleaseYear());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getReleaseYear());
+        return Objects.hash(super.hashCode(), getReleaseYear());
     }
 }

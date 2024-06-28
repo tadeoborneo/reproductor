@@ -2,8 +2,9 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Playlist implements Comparable<Playlist>{
+public class Playlist implements Comparable<Playlist> {
     private String name;
     private List<Song> songs;
 
@@ -31,16 +32,28 @@ public class Playlist implements Comparable<Playlist>{
     public Playlist() {
     }
 
-    public Song addSong (Song song){
-        if (!this.getSongs().contains(song)){
+    public Song addSong(Song song) {
+        if (!this.getSongs().contains(song)) {
             this.getSongs().add(song);
         }
         return song;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Playlist playlist)) return false;
+        return Objects.equals(getName(), playlist.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getName());
+    }
+
+    @Override
     public int compareTo(Playlist o) {
-        if(this.getName().compareTo(o.getName()) > 0)
+        if (this.getName().compareTo(o.getName()) > 0)
             return 1;
         else if (this.getName().compareTo(o.getName()) < 0)
             return -1;
@@ -50,7 +63,7 @@ public class Playlist implements Comparable<Playlist>{
 
     @Override
     public String toString() {
-        return "Name: "+this.getName()+
-                "\nSongs: "+this.getSongs();
+        return "Name: " + this.getName() +
+                "\nSongs:\n " + this.getSongs();
     }
 }

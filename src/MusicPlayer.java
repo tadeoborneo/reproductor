@@ -35,7 +35,7 @@ public class MusicPlayer {
         this.accountController = new AccountController();
         this.artistController = new ArtistController();
         this.albumController = new AlbumController(this.getArtistController());
-        this.songController = new SongController(this.getArtistController(),this.getAlbumController());
+        this.songController = new SongController(this.getArtistController(), this.getAlbumController());
     }
 
     public void mainMenu() {
@@ -169,7 +169,8 @@ public class MusicPlayer {
                         this.getAlbumController().removeAlbum();
                         break;
                     case 3://UPDATE ALBUM
-                        // TODO
+                        this.getAlbumController().getAlbumService().getAlbumJson().view();
+                        this.getAlbumController().updateAlbum();
                         break;
                     case 4://VIEW ALBUM
                         this.getAlbumController().getAlbumService().getAlbumJson().view();
@@ -208,7 +209,8 @@ public class MusicPlayer {
                         this.getArtistController().removeArtist();
                         break;
                     case 3://UPDATE ARTIST
-                        // TODO
+                        this.getArtistController().getArtistService().getArtistJson().view();
+                        this.getArtistController().updateArtist();
                         break;
                     case 4://VIEW ARTIST
                         this.getArtistController().getArtistService().getArtistJson().view();
@@ -248,7 +250,8 @@ public class MusicPlayer {
                         this.getSongController().removeSong();
                         break;
                     case 3://UPDATE SONG
-                        // TODO
+                        this.getSongController().getSongService().getSongJson().view();
+                        this.getSongController().updateSong();
                         break;
                     case 4://VIEW SONG
                         this.getSongController().getSongService().getSongJson().view();
@@ -298,7 +301,8 @@ public class MusicPlayer {
                         this.getAccountController().removeAccount();
                         break;
                     case 3://UPDATE ACCOUNT
-                        // TODO
+                        this.getAccountController().getAccountService().getJsonAcc().view();
+                        this.getAccountController().updateAccount();
                         break;
                     case 4://VIEW ACCOUNTS
                         this.getAccountController().getAccountService().getJsonAcc().view();

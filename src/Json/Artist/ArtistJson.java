@@ -1,6 +1,8 @@
 package Json.Artist;
 
+import Exception.Artist.ArtistNotFound;
 import Interfaces.Crud;
+import Models.Album;
 import Models.Artist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,7 +52,8 @@ public class ArtistJson implements Crud<Artist> {
 
     @Override
     public void remove(Artist artist) {
-        this.getArtists().remove(artist);
+        if (!existArtist(artist))
+            this.getArtists().remove(artist);
     }
 
     @Override
@@ -62,8 +65,29 @@ public class ArtistJson implements Crud<Artist> {
         }
     }
 
-    public Boolean existArtist(String name) {
-        return this.getArtists().stream().anyMatch(artist -> artist.getName().equals(name));
+    public void updateName(String newName, Artist artist) throws ArtistNotFound {
+        if (existArtist(artist)) {
+            for (Artist a : this.getArtists()) {
+                if (a.equals(artist)) {
+                    a.setName(newName);
+                }
+            }
+        } else
+            throw new ArtistNotFound();
+    }
+
+    public void updateAlbums(Set<Album> newAlbums, Artist artist) {
+        if (existArtist(artist)) {
+            for (Artist a : this.getArtists()) {
+                if (a.equals(artist))
+                    a.setAlbums(newAlbums);
+            }
+        }
+
+    }
+
+    public Boolean existArtist(Artist artist) {
+        return this.getArtists().stream().anyMatch(artist1 -> artist1.equals(artist));
     }
 
     public List<Artist> searchArtists(String name) {

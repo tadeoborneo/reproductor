@@ -1,7 +1,7 @@
 package Json.Song;
 
+import Enums.MusicalGenre;
 import Interfaces.Crud;
-import Models.Artist;
 import Models.Song;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +38,7 @@ public class SongJson implements Crud<Song> {
 
     public void saveJsonSongs() {
         try {
-            mapper.writeValue(songJson,this.getSongs());
+            mapper.writeValue(songJson, this.getSongs());
         } catch (IOException e) {
             System.out.println(e.getMessage());
             ;
@@ -64,7 +64,21 @@ public class SongJson implements Crud<Song> {
         }
     }
 
-    public List<Song> searchSongs (String songName){
+    public void updateName(String newName, Song song) {
+        for (Song s : this.getSongs()) {
+            if (s.equals(song))
+                s.setName(newName);
+        }
+    }
+
+    public void updateGenre(MusicalGenre newMusicalGenre, Song song) {
+        for (Song s : this.getSongs()) {
+            if (s.equals(song))
+                s.setMusicalGenre(newMusicalGenre);
+        }
+    }
+
+    public List<Song> searchSongs(String songName) {
         return this.getSongs().stream().filter(song -> song.getName().toLowerCase().startsWith(songName.toLowerCase())).toList();
     }
 }
