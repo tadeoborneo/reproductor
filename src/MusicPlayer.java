@@ -244,11 +244,14 @@ public class MusicPlayer {
                         this.getSongController().createSong();
                         break;
                     case 2://DELETE SONG
+                        this.getSongController().getSongService().getSongJson().view();
+                        this.getSongController().removeSong();
                         break;
                     case 3://UPDATE SONG
                         // TODO
                         break;
                     case 4://VIEW SONG
+                        this.getSongController().getSongService().getSongJson().view();
                         break;
                     case 0://EXIT
                         return;

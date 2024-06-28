@@ -8,6 +8,15 @@ public class Artist implements Comparable<Artist>{
     private String name;
     private Integer monthlyListeners;
     private Set<Album> albums;
+    private Set<Song> songs;
+
+    public Set<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(Set<Song> songs) {
+        this.songs = songs;
+    }
 
     public String getName() {
         return name;
@@ -37,6 +46,7 @@ public class Artist implements Comparable<Artist>{
         this.name = name;
         this.monthlyListeners = 0;
         this.albums = new TreeSet<>();
+        this.songs = new TreeSet<>();
     }
 
     public Artist() {
@@ -46,7 +56,8 @@ public class Artist implements Comparable<Artist>{
     public String toString() {
         return "Name: "+this.getName()+
                 "\nMonthly listeners: "+this.getMonthlyListeners()+
-                "\nAlbums: "+this.getAlbums();
+                "\nAlbums:\n "+this.getAlbums()+
+                "\nSongs: \n"+this.getSongs();
     }
 
     @Override

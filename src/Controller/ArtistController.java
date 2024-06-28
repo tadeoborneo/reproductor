@@ -4,6 +4,7 @@ import Exception.Artist.ArtistException;
 import Interfaces.Selection;
 import Models.Album;
 import Models.Artist;
+import Models.Song;
 import Service.ArtistService;
 
 import Exception.InvalidOptionException;
@@ -76,6 +77,30 @@ public class ArtistController implements Selection<Artist> {
     public void addAlbumToArtist(Album album) {
         for (Artist a : album.getArtists()){
             this.getArtistService().addAlbumToArtist(album,a);
+        }
+    }
+
+    public void addSongToArtist(Song song){
+        for (Artist a : song.getArtists()){
+            this.getArtistService().addSongToArtist(song,a);
+        }
+    }
+
+    public void removeAlbumFromArtist(Album album){
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
+            if (a.getAlbums().contains(album)){
+                a.getAlbums().remove(album);
+            }
+        }
+    }
+    public void removeSongFromArtist(Song song){
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
+            if (a.getSongs().contains(song))
+                a.getSongs().remove(song);
+            for (Album album : a.getAlbums()){
+                if (album.getSongs().contains(song))
+                    album.getSongs().remove(song);
+            }
         }
     }
 }

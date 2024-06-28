@@ -1,6 +1,7 @@
 package Json.Song;
 
 import Interfaces.Crud;
+import Models.Artist;
 import Models.Song;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,11 +52,19 @@ public class SongJson implements Crud<Song> {
 
     @Override
     public void remove(Song song) {
-
+        this.getSongs().remove(song);
     }
 
     @Override
     public void view() {
+        for (Song s : this.getSongs()) {
+            System.out.println("--------------------------------------------------------");
+            System.out.println(s);
+            System.out.println("--------------------------------------------------------");
+        }
+    }
 
+    public List<Song> searchSongs (String songName){
+        return this.getSongs().stream().filter(song -> song.getName().toLowerCase().startsWith(songName.toLowerCase())).toList();
     }
 }

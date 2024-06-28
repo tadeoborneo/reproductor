@@ -1,8 +1,11 @@
 package Controller;
 
 import Enums.MusicalGenre;
+import Exception.*;
+import Exception.SongException.SongException;
 import Models.Album;
 import Models.Artist;
+import Models.Song;
 import Service.SongService;
 
 import java.util.*;
@@ -37,6 +40,7 @@ public class SongController {
         System.out.println("Duration (seconds): ");
         Integer secDuration = sc.nextInt();
         sc.nextLine();
+        Song song;
 
         Integer genre;
         MusicalGenre musicalGenre;
@@ -61,5 +65,28 @@ public class SongController {
         } while (songCreators.isEmpty() || select.equals(1));
 
         Album album = this.getAlbumController().selectAlbum();
+        song = new Song(name,secDuration,musicalGenre,songCreators,album);
+        this.getSongService().add(song);
+        this.getAlbumController().addSongToAlbum(song);
+        this.getArtistController().addSongToArtist(song);
+    }
+
+    public Song removeSong(){
+        Scanner sc = new Scanner(System.in);
+        Song result;
+        do {
+            System.out.println("Search by name: ");
+            String songName = sc.nextLine();
+            try {
+                result = this.getSongService().remove(songName);
+                if (result != null) {
+                    this.getAlbumController().removeSongFromAlbum(result);
+                    this.getArtistController().removeSongFromArtist(result);
+                }
+                return result;
+            }catch (SongException | InvalidOptionException e){
+                System.out.println(e.getMessage());
+            }
+        }while(true);
     }
 }

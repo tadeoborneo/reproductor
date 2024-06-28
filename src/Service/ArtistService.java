@@ -7,6 +7,8 @@ import Json.Artist.ArtistJson;
 import Models.Album;
 import Models.Artist;
 import Exception.InvalidOptionException;
+import Models.Song;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,6 +45,13 @@ public class ArtistService implements Selection<Artist> {
                 artist1.getAlbums().add(album);
             }
         });
+    }
+
+    public void addSongToArtist (Song song, Artist artist){
+        for (Artist a : this.getArtistJson().getArtists()){
+            if (a.equals(artist))
+                a.getSongs().add(song);
+        }
     }
 
 }

@@ -4,68 +4,23 @@
     "monthlyListeners": 0,
     "albums": [
       {
-        "name": "Antes de ameri",
+        "name": "Como si no importara sencillo",
         "songs": [],
-        "releaseYear": 2023
+        "releaseYear": 2022
       }
-    ]
+    ],
+    "songs": []
   },
   {
-    "name": "Beret",
-    "monthlyListeners": 0,
-    "albums": []
-  },
-  {
-    "name": "Ysy",
-    "monthlyListeners": 0,
-    "albums": []
-  },
-  {
-    "name": "Juan",
-    "monthlyListeners": 0,
-    "albums": []
-  },
-  {
-    "name": "miguel",
-    "monthlyListeners": 0,
-    "albums": []
-  },
-  {
-    "name": "Dillom",
+    "name": "Emilia",
     "monthlyListeners": 0,
     "albums": [
       {
-        "name": "Por cesarea",
+        "name": "Como si no importara sencillo",
         "songs": [],
-        "releaseYear": 2024
+        "releaseYear": 2022
       }
-    ]
-  },
-  {
-    "name": "Paco amoroso",
-    "monthlyListeners": 0,
-    "albums": [
-      {
-        "name": "Bano maria",
-        "songs": [],
-        "releaseYear": 2024
-      }
-    ]
-  },
-  {
-    "name": "Milo j",
-    "monthlyListeners": 0,
-    "albums": []
-  },
-  {
-    "name": "Catriel",
-    "monthlyListeners": 0,
-    "albums": [
-      {
-        "name": "Bano maria",
-        "songs": [],
-        "releaseYear": 2024
-      }
-    ]
+    ],
+    "songs": []
   }
 ]

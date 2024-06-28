@@ -5,6 +5,7 @@ import Interfaces.Selection;
 import Models.Album;
 import Models.Artist;
 import Exception.InvalidOptionException;
+import Models.Song;
 import Service.AlbumService;
 
 import java.util.HashSet;
@@ -52,7 +53,7 @@ public class AlbumController implements Selection<Album> {
         System.out.println("Release year: ");
         Integer releaseYear = sc.nextInt();
         sc.nextLine();
-        Album album = new Album(name, releaseYear);
+        Album album = new Album(name, creators, releaseYear);
         this.getArtistController().addAlbumToArtist(album);
 
         this.getAlbumService().add(album);
@@ -67,7 +68,9 @@ public class AlbumController implements Selection<Album> {
             String albumName = sc.nextLine();
             try {
                 result = this.getAlbumService().remove(albumName);
-                return result;
+                if (result != null)
+                    this.getArtistController().removeAlbumFromArtist(result);
+                 return result;
             } catch (AlbumException | InvalidOptionException e) {
                 System.out.println(e.getMessage());
             }
@@ -102,5 +105,19 @@ public class AlbumController implements Selection<Album> {
                 }
             }
         } while (true);
+    }
+    public void addSongToAlbum(Song song){
+        for(Album a : this.getAlbumService().getAlbumJson().getAlbums()){
+            if (song.getAlbum().equals(a))
+                a.addSong(song);
+        }
+    }
+
+    public void removeSongFromAlbum(Song song){
+        for (Album a : this.getAlbumService().getAlbumJson().getAlbums()){
+            if (a.getSongs().contains(song)){
+                a.getSongs().remove(song);
+            }
+        }
     }
 }

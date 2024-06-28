@@ -6,6 +6,7 @@ import Interfaces.Selection;
 import Json.Playlist.AlbumJson;
 import Exception.InvalidOptionException;
 import Models.Album;
+import Models.Song;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class AlbumService implements Selection<Album> {
     public Album remove(String albumName) throws AlbumException,InvalidOptionException {
         Integer select;
         Album album;
-        List<Album> filteredAlbums = this.albumJson.searchAlbums(albumName);
+        List<Album> filteredAlbums = this.getAlbumJson().searchAlbums(albumName);
         if (filteredAlbums.isEmpty())
             throw new AlbumNotFound();
         else {
@@ -42,4 +43,5 @@ public class AlbumService implements Selection<Album> {
             }
         }
     }
+
 }
