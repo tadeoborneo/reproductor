@@ -68,8 +68,13 @@ public class AlbumController implements Selection<Album> {
             String albumName = sc.nextLine();
             try {
                 result = this.getAlbumService().remove(albumName);
-                if (result != null)
+                if (result != null) {
+                    for (Song s : result.getSongs()) {
+                        this.removeSongFromAlbum(s);
+                        this.getArtistController().removeSongFromArtist(s);
+                    }
                     this.getArtistController().removeAlbumFromArtist(result);
+                }
                 return result;
             } catch (AlbumException | InvalidOptionException e) {
                 System.out.println(e.getMessage());
@@ -85,6 +90,9 @@ public class AlbumController implements Selection<Album> {
             String albumName = sc.nextLine();
             try {
                 updatedAlbum = this.getAlbumService().update(albumName);
+                if (updatedAlbum != null){
+                    this.getArtistController().updateAlbumFromArtist(updatedAlbum);
+                }
                 return updatedAlbum;
             } catch (AlbumException | InvalidOptionException e) {
                 System.out.println(e.getMessage());
@@ -135,6 +143,17 @@ public class AlbumController implements Selection<Album> {
         for (Album a : this.getAlbumService().getAlbumJson().getAlbums()) {
             if (a.getSongs().contains(song)) {
                 a.getSongs().remove(song);
+            }
+        }
+    }
+
+    public void updateSongFromAlbum(Song newSong){
+        for (Album a : this.getAlbumService().getAlbumJson().getAlbums()){
+            for (Song s : a.getSongs()){
+                if (s.equals(newSong)) {
+                    s.setName(newSong.getName());
+                    s.setMusicalGenre(newSong.getMusicalGenre());
+                }
             }
         }
     }

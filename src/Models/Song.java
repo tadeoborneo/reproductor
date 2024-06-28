@@ -2,14 +2,18 @@ package Models;
 
 import Enums.MusicalGenre;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 public class Song implements Comparable<Song> {
     private String name;
     private Integer secondDuration;
     private MusicalGenre musicalGenre;
+    @JsonProperty
+    private UUID songId;
     @JsonIgnore
     private Set<Artist> artists;
     @JsonIgnore
@@ -64,6 +68,7 @@ public class Song implements Comparable<Song> {
         this.name = name;
         this.secondDuration = secondDuration;
         this.musicalGenre = musicalGenre;
+        this.songId = UUID.randomUUID();
         this.artists = artists;
         this.album = album;
     }
@@ -75,12 +80,12 @@ public class Song implements Comparable<Song> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Song song)) return false;
-        return Objects.equals(getName(), song.getName()) && Objects.equals(getSecondDuration(), song.getSecondDuration()) && getMusicalGenre() == song.getMusicalGenre() && Objects.equals(getArtists(), song.getArtists()) && Objects.equals(getAlbum(), song.getAlbum());
+        return Objects.equals(songId, song.songId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getSecondDuration(), getMusicalGenre(), getArtists(), getAlbum());
+        return Objects.hashCode(songId);
     }
 
     @Override

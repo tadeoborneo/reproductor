@@ -120,4 +120,34 @@ public class ArtistController implements Selection<Artist> {
         }
     }
 
+    public void updateAlbumFromArtist(Album newAlbum){
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
+            for (Album album : a.getAlbums()){
+                if (album.equals(newAlbum)){
+                    album.setName(newAlbum.getName());
+                    album.setReleaseYear(newAlbum.getReleaseYear());
+                }
+            }
+        }
+    }
+
+    public void updateSongFromArtist(Song newSong){
+        for (Artist a : this.getArtistService().getArtistJson().getArtists()){
+            for (Album album : a.getAlbums()){
+                for (Song song : album.getSongs()){
+                    if (song.equals(newSong)){
+                        song.setName(newSong.getName());
+                        song.setMusicalGenre(newSong.getMusicalGenre());
+                    }
+                }
+            }
+            for (Song s : a.getSongs()){
+                if (s.equals(newSong)){
+                    s.setName(newSong.getName());
+                    s.setMusicalGenre(newSong.getMusicalGenre());
+                }
+            }
+        }
+    }
+
 }

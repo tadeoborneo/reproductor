@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 public class Album extends Playlist {
     @JsonIgnore
@@ -50,16 +51,5 @@ public class Album extends Playlist {
         return song;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Album album)) return false;
-        if (!super.equals(o)) return false;
-        return Objects.equals(getReleaseYear(), album.getReleaseYear());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getReleaseYear());
-    }
 }

@@ -98,6 +98,10 @@ public class SongController {
             String songName = sc.nextLine();
             try {
                 updatedSong = this.getSongService().update(songName);
+                if (updatedSong != null){
+                    this.getAlbumController().updateSongFromAlbum(updatedSong);
+                    this.getArtistController().updateSongFromArtist(updatedSong);
+                }
                 return updatedSong;
             } catch (SongException | InvalidOptionException e) {
                 System.out.println(e.getMessage());

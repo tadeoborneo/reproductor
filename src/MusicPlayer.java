@@ -2,9 +2,7 @@ import Controller.AccountController;
 import Controller.ArtistController;
 import Controller.AlbumController;
 import Controller.SongController;
-import Models.Account;
-import Models.Free;
-import Models.Premium;
+import Models.*;
 
 import java.util.*;
 
@@ -165,8 +163,14 @@ public class MusicPlayer {
                         this.getAlbumController().createAlbum();
                         break;
                     case 2://DELETE ALBUM
+                        Album album;
                         this.getAlbumController().getAlbumService().getAlbumJson().view();
-                        this.getAlbumController().removeAlbum();
+                        album = this.getAlbumController().removeAlbum();
+                        if (album != null) {
+                            for (Song s : album.getSongs()) {
+                                this.getSongController().getSongService().getSongJson().remove(s);
+                            }
+                        }
                         break;
                     case 3://UPDATE ALBUM
                         this.getAlbumController().getAlbumService().getAlbumJson().view();
