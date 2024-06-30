@@ -1,1 +1,40 @@
-{"premium":[{"user":"cuentapremium","password":"premium123","playlists":[]},{"user":"Premium Account","password":"Premiumacc","playlists":[]}],"free":[{"user":"cuentafree","password":"free123","playlists":[]},{"user":"tadeobor","password":"tadeobor123","playlists":[]}]}
+{
+  "premium": [
+    {
+      "user": "cuentapremium",
+      "password": "premium123",
+      "playlists": []
+    },
+    {
+      "user": "Premium Account",
+      "password": "Premiumacc",
+      "playlists": []
+    }
+  ],
+  "free": [
+    {
+      "user": "cuentafree",
+      "password": "free123",
+      "playlists": [
+        {
+          "name": "Antes de ameri",
+          "playlistId": "1dc47053-2ed5-4384-8b0f-6f3a0b9591ef",
+          "songs": [
+            {
+              "name": "1Ro dE enEro",
+              "secondDuration": 200,
+              "musicalGenre": "CLASSIC",
+              "songId": "950e42ba-44c7-409f-a731-628381a33519"
+            }
+          ],
+          "releaseYear": 2023
+        }
+      ]
+    },
+    {
+      "user": "tadeobor",
+      "password": "tadeobor123",
+      "playlists": []
+    }
+  ]
+}

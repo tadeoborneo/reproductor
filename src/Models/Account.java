@@ -60,6 +60,15 @@ public class Account {
         this.songQueue = new ArrayDeque<>();
     }
 
+    public void viewPlaylists(){
+        for (Playlist p : this.getPlaylists()){
+            System.out.println("--------------------------------------------------------");
+            System.out.println(p);
+            System.out.println("--------------------------------------------------------");
+        }
+
+    }
+
     @Override
     public String toString() {
         return "Username: " + this.getUser() +
@@ -68,7 +77,10 @@ public class Account {
     }
 
     public Playlist addPlaylist(Playlist playlist) {
-        this.getPlaylists().add(playlist);
-        return playlist;
+        if (playlist != null){
+            this.getPlaylists().add(playlist);
+            return playlist;
+        }else
+            return null;
     }
 }

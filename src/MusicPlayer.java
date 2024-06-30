@@ -2,11 +2,13 @@ import Controller.AccountController;
 import Controller.ArtistController;
 import Controller.AlbumController;
 import Controller.SongController;
+import Interfaces.Selection;
 import Models.*;
+import Exception.InvalidOptionException;
 
 import java.util.*;
 
-public class MusicPlayer {
+public class MusicPlayer implements Selection {
     private final AccountController accountController;
     private final SongController songController;
     private final ArtistController artistController;
@@ -36,7 +38,7 @@ public class MusicPlayer {
         this.songController = new SongController(this.getArtistController(), this.getAlbumController());
     }
 
-    public void mainMenu() {
+    public void mainMenu() throws InvalidOptionException {
         Integer select = 0;
         while (true) {
             try {
@@ -60,8 +62,8 @@ public class MusicPlayer {
                                 if (account.getPassword().equals(password)) {
 
                                     if (account instanceof Free) {
-                                        //MENU FREE
-
+                                        menuFree((Free)account);
+                                        System.out.println(account);
                                     } else if (account instanceof Premium) {
                                         //MENU PREMIUM
                                     }
@@ -90,9 +92,8 @@ public class MusicPlayer {
                     case 0:
                         sc.close();
                         return;
-
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -107,7 +108,51 @@ public class MusicPlayer {
         }
     }
 
-    public void menuAdmin() {
+    public void menuFree(Free account)throws InvalidOptionException {
+        Integer select = 0;
+        while (true) {
+            try {
+                System.out.println("1- Play");
+                System.out.println("2- Search albums");
+                System.out.println("3- My playlists");
+                System.out.println("0- Exit");
+                System.out.print("Selection: ");
+                select = sc.nextInt();
+                sc.nextLine();
+                switch (select) {
+                    case 1:
+                        account.viewPlaylists();
+                        Integer playSelection = select(account.getPlaylists());
+                        Playlist selectedPlaylist = account.getPlaylists().get(playSelection - 1);
+                        
+                        break;
+                    case 2:
+                        this.getAlbumController().getAlbumService().getAlbumJson().view();
+                        Integer selectAlbum;
+                        System.out.println("Search by name: ");
+                        String albumName = sc.nextLine();
+                        List<Album> filteredAlbums = this.getAlbumController().getAlbumService().getAlbumJson().searchAlbums(albumName);
+                        selectAlbum = select(filteredAlbums);
+                        account.addPlaylist(filteredAlbums.get(selectAlbum - 1));
+                        break;
+                    case 3:
+                        account.viewPlaylists();
+                        break;
+                    case 0://EXIT
+                        return;
+
+                    default:
+                        throw new InvalidOptionException();
+
+                }
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println("It isn't a number");
+                sc.nextLine();
+            }
+        }
+    }
+
+    public void menuAdmin()throws InvalidOptionException {
         Integer select = 0;
         while (true) {
             try {
@@ -136,7 +181,7 @@ public class MusicPlayer {
                         return;
 
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -146,7 +191,7 @@ public class MusicPlayer {
         }
     }
 
-    public void albumAdmin() {
+    public void albumAdmin() throws InvalidOptionException{
         Integer select = 0;
         while (true) {
             try {
@@ -183,7 +228,7 @@ public class MusicPlayer {
                         return;
 
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -193,7 +238,7 @@ public class MusicPlayer {
         }
     }
 
-    public void artistAdmin() {
+    public void artistAdmin() throws InvalidOptionException{
         Integer select = 0;
         while (true) {
             try {
@@ -223,7 +268,7 @@ public class MusicPlayer {
                         return;
 
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -233,7 +278,7 @@ public class MusicPlayer {
         }
     }
 
-    public void songAdmin() {
+    public void songAdmin()throws InvalidOptionException {
         Integer select = 0;
         while (true) {
             try {
@@ -264,7 +309,7 @@ public class MusicPlayer {
                         return;
 
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -274,7 +319,7 @@ public class MusicPlayer {
         }
     }
 
-    public void accountAdmin() {
+    public void accountAdmin() throws InvalidOptionException{
         Integer select = 0;
         while (true) {
             try {
@@ -315,7 +360,7 @@ public class MusicPlayer {
                         return;
 
                     default:
-                        System.out.println("Select a valid option");
+                        throw new InvalidOptionException();
 
                 }
             } catch (InputMismatchException inputMismatchException) {
