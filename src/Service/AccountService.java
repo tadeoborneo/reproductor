@@ -25,13 +25,20 @@ public class AccountService implements Selection<Account> {
     public AccountService() {
     }
 
-    public void add(String username, String password, Boolean premium) throws AccountException {
+    public Account add(String username, String password, Boolean premium) throws AccountException {
+        Account account;
         if (!this.getJsonAcc().existUser(username)) {
             if (password.length() >= 4) {
-                if (premium)
-                    this.getJsonAcc().add(new Premium(username, password));
-                else
-                    this.getJsonAcc().add(new Free(username, password));
+                if (premium) {
+                    account = new Premium(username, password);
+                    this.getJsonAcc().add(account);
+                    return account;
+                }
+                else{
+                    account = new Free(username, password);
+                    this.getJsonAcc().add(account);
+                    return account;
+                }
             } else
                 throw new PasswordIsTooShort();
         } else

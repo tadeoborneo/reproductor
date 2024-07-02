@@ -19,7 +19,7 @@ public class AccountController {
         accountService = new AccountService();
     }
 
-    public Boolean createAccount(Boolean premium) {
+    public Account createAccount(Boolean premium) {
         String username;
         String password;
         Scanner sc = new Scanner(System.in);
@@ -28,11 +28,10 @@ public class AccountController {
             username = sc.nextLine();
             System.out.println("Password: ");
             password = sc.nextLine();
-            this.getAccountService().add(username, password, premium);
-            return true;
+            return this.getAccountService().add(username, password, premium);
         } catch (AccountException e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
 

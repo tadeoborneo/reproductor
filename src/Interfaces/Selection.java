@@ -9,6 +9,8 @@ public interface Selection<T> {
     public default Integer select(List<T> tList) throws InvalidOptionException {
         Scanner sc = new Scanner(System.in);
         Integer select;
+        if (tList.isEmpty())
+            System.out.println("Doesn't exist");
         for (int i = 0; i < tList.size(); i++) {
             System.out.println("--------------------------------------------------------");
             System.out.println("|" + (i + 1) + "|\n" + tList.get(i));

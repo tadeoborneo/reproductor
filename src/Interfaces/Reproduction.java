@@ -2,16 +2,18 @@ package Interfaces;
 
 import Models.*;
 
-import java.util.Queue;
+
+import java.util.concurrent.*;
 
 public interface Reproduction {
-    public Song play(Queue<Song> queue);
 
-    public Song next();
+    public void play();
 
-    public Song previous();
+    public void next();
 
-    public Song pause();
+    public void previous();
 
-    public Song rewind();
+    public void stop();
+
 }
+

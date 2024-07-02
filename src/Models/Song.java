@@ -100,8 +100,8 @@ public class Song implements Comparable<Song> {
 
     @Override
     public String toString() {
-        return "Name: " + this.getName() +
+        return "\nName: " + this.getName() +
                 "\nSecond duration: " + this.getSecondDuration() +
-                "\nMusical genre: " + this.getMusicalGenre();
+                "\nMusical genre: " + this.getMusicalGenre()+"\n";
     }
 }

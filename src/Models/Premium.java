@@ -4,7 +4,8 @@ import Interfaces.Reproduction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
-import java.util.Queue;
+
+import java.util.Scanner;
 
 
 public class Premium extends Account implements Reproduction {
@@ -24,8 +25,9 @@ public class Premium extends Account implements Reproduction {
         this.aleatory = false;
     }
 
-    public Premium(String user, String password, List<Playlist> playlists) {
-        super(user, password, playlists);
+    public Premium(String user, String password, List<Playlist> playlists, List<Album> albums) {
+        super(user, password, playlists, albums);
+        this.aleatory = false;
     }
 
     public Premium() {
@@ -33,48 +35,50 @@ public class Premium extends Account implements Reproduction {
     }
 
     @Override
-    public Song play(Queue<Song> queue) {
-        return null;
+    public void play() {
+        if (!this.getSongQueue().isEmpty()) {
+            Integer selection;
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Reproducing: " + this.getSongQueue().getFirst().getName());
+            do {
+                System.out.println("1-Next  2-Previous  3-Stop");
+                selection = sc.nextInt();
+                sc.nextLine();
+                if (selection.equals(1))
+                    next();
+                else if (selection.equals(2))
+                    previous();
+                else if (selection.equals(3))
+                    stop();
+
+            } while (selection < 1 || selection > 3);
+
+        }
     }
 
     @Override
-    public Song next() {
-        return null;
+    public void next() {
+        this.getSongQueue().addLast(this.getSongQueue().removeFirst());
+        this.play();
     }
 
     @Override
-    public Song previous() {
-        return null;
+    public void previous() {
+        this.getSongQueue().addFirst(this.getSongQueue().removeLast());
+        play();
     }
 
     @Override
-    public Song pause() {
-        return null;
+    public void stop() {
+        this.getSongQueue().clear();
+        System.out.println("Reproduction stopped");
+        play();
     }
 
-    @Override
-    public Song rewind() {
-        return null;
-    }
 
     @Override
     public String toString() {
         return "Premium account: \n" + super.toString();
     }
 
-    public Playlist createPlaylist(String name) {
-        return new Playlist(name);
-    }
-
-    public Song addToQueue(Song song) {
-        this.getSongQueue().offer(song);
-        return song;
-    }
-
-    public Song deleteFromQueue(Song song) {
-        if (this.getSongQueue().contains(song))
-            return song;
-        else
-            return null;
-    }
 }

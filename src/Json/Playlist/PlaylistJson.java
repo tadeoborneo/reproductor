@@ -1,6 +1,7 @@
 package Json.Playlist;
 
 import Interfaces.Crud;
+import Models.Album;
 import Models.Playlist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,7 +53,8 @@ public class PlaylistJson implements Crud<Playlist> {
 
     @Override
     public void remove(Playlist playlist) {
-        this.getPlaylists().remove(playlist);
+        if (existPlaylist(playlist))
+            this.getPlaylists().remove(playlist);
     }
 
     @Override
@@ -62,6 +64,9 @@ public class PlaylistJson implements Crud<Playlist> {
             System.out.println(p);
             System.out.println("--------------------------------------------------------");
         }
+    }
+    public Boolean existPlaylist(Playlist playlist) {
+        return this.getPlaylists().stream().anyMatch(p -> p.equals(playlist));
     }
 
     public List<Playlist> searchPlaylists(String name) {

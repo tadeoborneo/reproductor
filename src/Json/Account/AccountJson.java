@@ -37,11 +37,11 @@ public class AccountJson implements Crud<Account> {
                 for (Map.Entry<String, List<Account>> entry : accountMap.entrySet()) {
                     if (entry.getKey().equals("premium")) {
                         for (Account a : entry.getValue()) {
-                            aux.add(new Premium(a.getUser(), a.getPassword(), a.getPlaylists()));
+                            aux.add(new Premium(a.getUser(), a.getPassword(), a.getPlaylists(),a.getAlbums()));
                         }
                     } else if (entry.getKey().equals("free")) {
                         for (Account a : entry.getValue()) {
-                            aux.add(new Free(a.getUser(), a.getPassword(), a.getPlaylists()));
+                            aux.add(new Free(a.getUser(), a.getPassword(), a.getPlaylists(),a.getAlbums()));
                         }
                     }
                 }
