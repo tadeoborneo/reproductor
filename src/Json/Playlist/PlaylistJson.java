@@ -1,7 +1,6 @@
 package Json.Playlist;
 
 import Interfaces.Crud;
-import Models.Album;
 import Models.Playlist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PlaylistJson implements Crud<Playlist> {
@@ -69,7 +67,4 @@ public class PlaylistJson implements Crud<Playlist> {
         return this.getPlaylists().stream().anyMatch(p -> p.equals(playlist));
     }
 
-    public List<Playlist> searchPlaylists(String name) {
-        return this.getPlaylists().stream().filter(playlist -> playlist.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
-    }
 }

@@ -7,24 +7,24 @@ import java.util.*;
 public class Account {
     private String user;
     private String password;
-    private List<Playlist> playlists;
-    private List<Album> albums;
+    private Set<Playlist> playlists;
+    private Set<Album> albums;
     @JsonIgnore
     private Deque<Song> songQueue;
 
-    public List<Album> getAlbums() {
+    public Set<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(Set<Album> albums) {
         this.albums = albums;
     }
 
-    public List<Playlist> getPlaylists() {
+    public Set<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(List<Playlist> playlists) {
+    public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
     }
 
@@ -55,7 +55,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String user, String password, List<Playlist> playlists, List<Album> albums) {
+    public Account(String user, String password, Set<Playlist> playlists, Set<Album> albums) {
         this.user = user;
         this.password = password;
         this.playlists = playlists;
@@ -66,8 +66,8 @@ public class Account {
     public Account(String user, String password) {
         this.user = user;
         this.password = password;
-        this.playlists = new ArrayList<>();
-        this.albums = new ArrayList<>();
+        this.playlists = new HashSet<>();
+        this.albums = new HashSet<>();
         this.songQueue = new ArrayDeque<>();
     }
 

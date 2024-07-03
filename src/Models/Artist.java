@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Artist implements Comparable<Artist> {
     private String name;
-    private Integer monthlyListeners;
     private Set<Album> albums;
     private Set<Song> songs;
 
@@ -24,13 +23,6 @@ public class Artist implements Comparable<Artist> {
         this.name = name;
     }
 
-    public Integer getMonthlyListeners() {
-        return monthlyListeners;
-    }
-
-    public void setMonthlyListeners(Integer monthlyListeners) {
-        this.monthlyListeners = monthlyListeners;
-    }
 
     public Set<Album> getAlbums() {
         return albums;
@@ -42,7 +34,6 @@ public class Artist implements Comparable<Artist> {
 
     public Artist(String name) {
         this.name = name;
-        this.monthlyListeners = 0;
         this.albums = new TreeSet<>();
         this.songs = new TreeSet<>();
     }
@@ -53,7 +44,6 @@ public class Artist implements Comparable<Artist> {
     @Override
     public String toString() {
         return "Name: " + this.getName() +
-                "\nMonthly listeners: " + this.getMonthlyListeners() +
                 "\nSongs: \n" + this.getSongs();
     }
 
@@ -61,12 +51,12 @@ public class Artist implements Comparable<Artist> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Artist artist)) return false;
-        return Objects.equals(getName(), artist.getName()) && Objects.equals(getMonthlyListeners(), artist.getMonthlyListeners()) && Objects.equals(getAlbums(), artist.getAlbums());
+        return Objects.equals(getName(), artist.getName()) && Objects.equals(getAlbums(), artist.getAlbums());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getMonthlyListeners(), getAlbums());
+        return Objects.hash(getName(), getAlbums());
     }
 
     @Override

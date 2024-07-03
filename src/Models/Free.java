@@ -2,9 +2,8 @@ package Models;
 
 import Interfaces.Reproduction;
 
-import java.util.List;
-
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.*;
 
 public class Free extends Account implements Reproduction {
@@ -13,7 +12,7 @@ public class Free extends Account implements Reproduction {
         super(user, password);
     }
 
-    public Free(String user, String password, List<Playlist> playlists, List<Album> albums) {
+    public Free(String user, String password, Set<Playlist> playlists, Set<Album> albums) {
         super(user, password, playlists, albums);
     }
 

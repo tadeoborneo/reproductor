@@ -3,9 +3,9 @@ package Models;
 import Interfaces.Reproduction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.List;
 
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class Premium extends Account implements Reproduction {
@@ -25,7 +25,7 @@ public class Premium extends Account implements Reproduction {
         this.aleatory = false;
     }
 
-    public Premium(String user, String password, List<Playlist> playlists, List<Album> albums) {
+    public Premium(String user, String password, Set<Playlist> playlists, Set<Album> albums) {
         super(user, password, playlists, albums);
         this.aleatory = false;
     }

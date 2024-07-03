@@ -2,9 +2,8 @@ package Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
+
 
 public class Album extends Playlist {
     @JsonIgnore

@@ -123,8 +123,7 @@ public class MusicPlayer implements Selection {
                 System.out.println("4- My albums");
                 System.out.println("5- Create playlist");
                 System.out.println("6- Add songs to playlist");
-                System.out.println("7- Songs");
-                System.out.println("0- Exit");
+                System.out.println("0- Log out");
                 System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
@@ -132,6 +131,8 @@ public class MusicPlayer implements Selection {
                     case 1:
                         account.viewAlbums();
                         account.viewPlaylists();
+                        if (account.getPlaylists().isEmpty() && account.getAlbums().isEmpty())
+                            break;
                         System.out.println("Search by name: ");
                         String playlistName = sc.nextLine();
                         List<Playlist> myPlaylists = account.searchPlaylist(playlistName);
@@ -143,38 +144,37 @@ public class MusicPlayer implements Selection {
                             System.out.println(e.getMessage());
                             break;
                         }
-                        if (!selectPlaylist.equals(0)) {
-                            Playlist selectedPlaylist = myPlaylists.get((selectPlaylist - 1));
-                            if (selectedPlaylist.getSongs().isEmpty()) {
-                                System.out.println("Empty playlist");
-                                break;
+                        if (selectPlaylist != null) {
+                            if (!selectPlaylist.equals(0)) {
+                                Playlist selectedPlaylist = myPlaylists.get((selectPlaylist - 1));
+                                if (selectedPlaylist.getSongs().isEmpty()) {
+                                    System.out.println("Empty playlist");
+                                    break;
+                                }
+                                account.getSongQueue().addAll(myPlaylists.get(selectPlaylist - 1).getSongs());
+                                Integer aleatorySelect;
+                                if (account.getAleatory().equals(false)) {
+                                    System.out.println("Aleatory: DISABLED (Press 1 to enable)");
+                                    aleatorySelect = sc.nextInt();
+                                    if (aleatorySelect.equals(1))
+                                        account.setAleatory(true);
+                                } else {
+                                    System.out.println("Aleatory: ENABLED (Press 0 to disable)");
+                                    aleatorySelect = sc.nextInt();
+                                    if (aleatorySelect.equals(0))
+                                        account.setAleatory(false);
+                                }
+
+                                sc.nextLine();
+                                if (account.getAleatory().equals(true)) {
+
+                                    List<Song> songQueue = new ArrayList<>(account.getSongQueue());
+                                    Collections.shuffle(songQueue);
+                                    Deque<Song> shuffledSongQueue = new ArrayDeque<>(songQueue);
+                                    account.setSongQueue(shuffledSongQueue);
+                                }
+                                account.play();
                             }
-                            account.getSongQueue().addAll(myPlaylists.get(selectPlaylist - 1).getSongs());
-                            Integer aleatorySelect;
-                            if (account.getAleatory().equals(false)) {
-                                System.out.println("Aleatory: DISABLED (Press 1 to enable)");
-                                aleatorySelect = sc.nextInt();
-                                if (aleatorySelect.equals(1))
-                                    account.setAleatory(true);
-                            } else {
-                                System.out.println("Aleatory: ENABLED (Press 0 to disable)");
-                                aleatorySelect = sc.nextInt();
-                                if (aleatorySelect.equals(0))
-                                    account.setAleatory(false);
-                            }
-
-                            sc.nextLine();
-                            if (account.getAleatory().equals(true)) {
-
-                                List<Song> songQueue = new ArrayList<>(account.getSongQueue());
-                                Collections.shuffle(songQueue);
-                                Deque<Song> shuffledSongQueue = new ArrayDeque<>(songQueue);
-                                account.setSongQueue(shuffledSongQueue);
-                            }
-
-                            account.play();
-
-
                         }
                         break;
                     case 2:
@@ -214,7 +214,8 @@ public class MusicPlayer implements Selection {
                             try {
                                 selectSong = select(filteredSongs);
                                 if (!selectSong.equals(0)) {
-                                    myPlaylists = account.getPlaylists();
+                                    List<Playlist> playlistList = new ArrayList<>(account.getPlaylists());
+                                    myPlaylists = playlistList;
                                     System.out.println("Select a playlist to add the chosen song");
                                     selectPlaylist = select(myPlaylists);
                                     if (!selectPlaylist.equals(0)) {
@@ -246,20 +247,22 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void menuFree(Free account) throws InvalidOptionException {
+    public void menuFree(Free account) {
         Integer select = 0;
         while (true) {
             try {
                 System.out.println("\n1- Play");
                 System.out.println("2- Save albums");
                 System.out.println("3- My albums");
-                System.out.println("0- Exit");
+                System.out.println("0- Log out");
                 System.out.print("Selection: ");
                 select = sc.nextInt();
                 sc.nextLine();
                 switch (select) {
                     case 1:
                         account.viewAlbums();
+                        if (account.getAlbums().isEmpty())
+                            break;
                         Integer playSelection;
                         System.out.println("Search by name: ");
                         String albumName = sc.nextLine();
@@ -270,18 +273,20 @@ public class MusicPlayer implements Selection {
                             System.out.println(e.getMessage());
                             break;
                         }
-                        if (!playSelection.equals(0)) {
-                            Album selectedAlbum = account.getAlbums().get(playSelection - 1);
+                        if (playSelection != null) {
+                            if (!playSelection.equals(0)) {
+                                List<Album> albumList = new ArrayList<>(account.getAlbums());
+                                Album selectedAlbum = albumList.get(playSelection - 1);
 
-                            List<Song> songQueue = new ArrayList<>(selectedAlbum.getSongs());
-                            Collections.shuffle(songQueue);
-                            Deque<Song> shuffledSongQueue = new ArrayDeque<>(songQueue);
-                            account.setSongQueue(shuffledSongQueue);
+                                List<Song> songQueue = new ArrayList<>(selectedAlbum.getSongs());
+                                Collections.shuffle(songQueue);
+                                Deque<Song> shuffledSongQueue = new ArrayDeque<>(songQueue);
+                                account.setSongQueue(shuffledSongQueue);
 
-                            account.play();
+                                account.play();
 
+                            }
                         }
-
                         break;
                     case 2:
                         this.getAlbumController().getAlbumService().getAlbumJson().view();
@@ -306,7 +311,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -316,7 +321,7 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void menuAdmin() throws InvalidOptionException {
+    public void menuAdmin() {
         Integer select = 0;
         while (true) {
             try {
@@ -345,7 +350,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -355,7 +360,7 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void albumAdmin() throws InvalidOptionException {
+    public void albumAdmin() {
         Integer select = 0;
         while (true) {
             try {
@@ -392,7 +397,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -402,7 +407,7 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void artistAdmin() throws InvalidOptionException {
+    public void artistAdmin() {
         Integer select = 0;
         while (true) {
             try {
@@ -432,7 +437,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -442,7 +447,7 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void songAdmin() throws InvalidOptionException {
+    public void songAdmin() {
         Integer select = 0;
         while (true) {
             try {
@@ -473,7 +478,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {
@@ -483,7 +488,7 @@ public class MusicPlayer implements Selection {
         }
     }
 
-    public void accountAdmin() throws InvalidOptionException {
+    public void accountAdmin() {
         Integer select = 0;
         while (true) {
             try {
@@ -524,7 +529,7 @@ public class MusicPlayer implements Selection {
                         return;
 
                     default:
-                        throw new InvalidOptionException();
+                        System.out.println("Invalid option");
 
                 }
             } catch (InputMismatchException inputMismatchException) {

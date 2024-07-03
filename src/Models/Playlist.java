@@ -69,7 +69,7 @@ public class Playlist implements Comparable<Playlist> {
 
     @Override
     public String toString() {
-        return "Name: " + this.getName() +
+        return "Playlist name: " + this.getName() +
                 "\nSongs:\n " + this.getSongs();
     }
 }
